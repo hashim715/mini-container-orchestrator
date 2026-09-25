@@ -21,25 +21,31 @@ func NewDockerRuntime() (Runtime, error) {
 	return &docker_runtime,nil;
 };
 
-func(d *DockerRuntime) ListContainers(ctx context.Context) (client.ContainerListResult,error) {
+func(d *DockerRuntime) ListContainers(ctx context.Context) ([]string,error) {
 	containers, err := d.apiClient.ContainerList(ctx, client.ContainerListOptions{});
 
 	if err != nil {
-		return client.ContainerListResult{},err;
+		return []string{},err;
 	};
 
-	return containers,nil;
+	container_ids := []string{};
+
+	for _, container := range containers.Items {
+		container_ids = append(container_ids, container.ID);
+	};
+
+	return container_ids,nil;
 };
 
-func (d *DockerRuntime) CreateContainer(image string, command string, env string, name string) (error,string) {
-	return nil,"";
+func (d *DockerRuntime) CreateContainer(image string, command string, env string, name string) (string,error) {
+	return "",nil;
 };
 
 func (d *DockerRuntime) StartContainer(container_id string) error {
 	return nil;
 };
 
-func (d *DockerRuntime) StopContainer(container_id string, timeout time.Time) error {
+func (d *DockerRuntime) StopContainer(container_id string, timeout time.Duration) error {
 	return nil;
 };
 

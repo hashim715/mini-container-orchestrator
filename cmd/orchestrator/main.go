@@ -26,7 +26,7 @@ func main() {
 		return;
 	};
 
-	for _, container := range containers.Items {
-		fmt.Println(container.ID)
+	for _,id := range containers {
+		fmt.Println(id);
 	};
 };

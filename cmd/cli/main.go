@@ -19,6 +19,7 @@ func main() {
 
 	ctx := context.Background();
 
+
 	containers,err := rt.ListContainers(ctx);
 
 	if err != nil {
@@ -26,7 +27,7 @@ func main() {
 		return;
 	};
 
-	for _, container := range containers.Items {
-		fmt.Println(container.ID)
+	for _,id := range containers {
+		fmt.Println(id);
 	};
 };
