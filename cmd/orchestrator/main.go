@@ -26,7 +26,18 @@ func main() {
 		return;
 	};
 
-	for _,id := range containers {
-		fmt.Println(id);
+	for _,container := range containers {
+		fmt.Println(container.ID);
+	};
+
+	resp, err := rt.CreateContainer(ctx, "alpine",[]string{"echo","hello world"},[]string{},"my-test-container");
+
+	if err != nil {
+		fmt.Printf("error in creating conatiners and the error is: %v\n",err);
+		return;
+	};
+
+	if (resp != "") {
+		fmt.Printf("the response from creating container is: %v\n",resp);
 	};
 };

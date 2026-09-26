@@ -27,6 +27,8 @@ pkg/
 
 `internal/runtime` defines a `Runtime` interface (create/start/stop/remove/status/list containers, plus `Close`) so the orchestrator, node agent, and CLI depend on an abstraction rather than a concrete container engine. `DockerRuntime` is the current implementation, backed by the [Docker Engine SDK](https://github.com/moby/moby) (`github.com/moby/moby/client`). Construct one with `runtime.NewDockerRuntime()`, which connects to the local Docker daemon via `client.FromEnv`.
 
+`ListContainers` returns `[]DockerContainer` (`ID`, `Name`, `Status`) rather than exposing the Docker SDK's response type directly, keeping callers decoupled from the underlying engine. `CreateContainer` pulls the requested image, streams the pull progress to stdout, and creates the container; if a container with the same name already exists, it returns that container's existing ID instead of failing.
+
 ## Requirements
 
 - Go 1.24.3+
